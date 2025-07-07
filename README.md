@@ -1,13 +1,11 @@
-# android_device_nubia_NX659J_a11test
-For building TWRP for Nubia RedMagic 5G / 5S
-
-TWRP device tree for Nubia RedMagic 5G and RedMagic 5S
+# Pit_Black_Recovery_For_nx659j
+To build Custom recoveries for Nubia Red Magic 5S/5G
 
 Kernel and all blobs are extracted from [NX659J-update.zip](http://romdownload.nubia.com/%E7%BA%A2%E9%AD%945G/V9.50/NX659J-update.zip) firmware.
 
 The Nubia RedMagic 5G (codenamed _"NX659J"_) and Nubia RedMagic 5S (codenamed _"NX659J_V1S or NX659J"_) are high-end gaming smartphones from Nubia.
 
-Nubia RedMagic 5G / 5S was announced and released in March / July 2020.
+Nubia RedMagic 5S / 5G was announced and released in March / July 2020.
 
 ## Device specifications
 
@@ -33,26 +31,22 @@ Nubia RedMagic 5G / 5S was announced and released in March / July 2020.
 
 - Booting.
 - ADB
+- ADB Sideload
 - MTP
 - OTG
 - Super partition functions
 - Vibration
-
-RedMagic 5G is using Dynamic Partition! We need update from TWRP.
+- Encryption
+- Flashing zips and rom files
 
 ## Compile
 
-First checkout minimal twrp with omnirom tree:
+First checkout the PBRP manifest in it's latest branch:
 
 ```
-repo init -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
+repo init -u https://github.com/PitchBlackRecoveryProject/manifest_pb -b android-12.1
 repo sync
-```
 
-Then add these projects to .repo/manifest.xml:
-
-```xml
-<project path="device/nubia/NX659J" name="mouZhe/android_device_nubia_NX659J_a11test" remote="github" revision="main" />
 ```
 
 Use ccache
@@ -67,18 +61,12 @@ Finally execute these:
 ```
 export ALLOW_MISSING_DEPENDENCIES=true
 . build/envsetup.sh
-lunch twrp_NX659J-eng
-mka recoveryimage
+lunch pb_NX659J-eng
+mka pbrp
 ```
 
 To test it:
 
 ```
-fastboot boot out/target/product/NX659J/recovery.img
+fastboot flash recovery out/target/product/NX659J/recovery.img
 ```
-
-## Thanks
-- [FsCrypt fix by mauronofrio](https://github.com/mauronofrio/android_bootable_recovery)
-- [Decryption by bigbiff](https://github.com/bigbiff/android_bootable_recovery)
-- [Oneplus 8 TWRP by mauronofrio](https://github.com/mauronofrio/android_device_oneplus_instantnoodle_TWRP)
-- [Xiaomi 10 TWRP by sekaiacg](https://github.com/sekaiacg/android_device_xiaomi_umi_TWRP)
